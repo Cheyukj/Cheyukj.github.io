@@ -64,6 +64,52 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-Day-1" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2022/11/07/Day-1/" class="article-date">
+  <time datetime="2022-11-07T12:08:58.000Z" itemprop="datePublished">2022-11-07</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2022/11/07/Day-1/">Day-1</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>// SPDX-License-Identifier: MIT<br>pragma solidity ^0.6.0;</p>
+<p>import ‘@openzeppelin/contracts/math/SafeMath.sol’;</p>
+<p>contract Fallback {</p>
+<p>  using SafeMath for uint256;<br>  mapping(address =&gt; uint) public contributions;<br>  address payable public owner;</p>
+<p>  constructor() public {<br>    owner = msg.sender;<br>    contributions[msg.sender] = 1000 * (1 ether);<br>  }</p>
+<p>  modifier onlyOwner {<br>        require(<br>            msg.sender == owner,<br>            “caller is not the owner”<br>        );<br>        _;<br>    }</p>
+<p>  function contribute() public payable {<br>    require(msg.value &lt; 0.001 ether);<br>    contributions[msg.sender] += msg.value;<br>    if(contributions[msg.sender] &gt; contributions[owner]) {<br>      owner = msg.sender;<br>    }<br>  }</p>
+<p>  function getContribution() public view returns (uint) {<br>    return contributions[msg.sender];<br>  }</p>
+<p>  function withdraw() public onlyOwner {<br>    owner.transfer(address(this).balance);<br>  }</p>
+<p>  receive() external payable {<br>    require(msg.value &gt; 0 &amp;&amp; contributions[msg.sender] &gt; 0);<br>    owner = msg.sender;<br>  }<br>}</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/11/07/Day-1/" data-id="cla6qqpmn0000y4u49f9gf9nz" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-Che-Test-blog" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2022/11/07/Che-Test-blog/" class="article-date">
@@ -179,6 +225,10 @@
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2022/11/07/Day-1/">Day-1</a>
+          </li>
         
           <li>
             <a href="/2022/11/07/Che-Test-blog/">Che-Test-blog</a>
